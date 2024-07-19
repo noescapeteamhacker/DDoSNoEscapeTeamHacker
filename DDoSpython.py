@@ -39,7 +39,7 @@ import threading
 import time
 from urllib.parse import urlparse
 
-# Function to make a request with a timeout
+
 def fetch_with_timeout(url, timeout=2):
     try:
         parsed_url = urlparse(url)
@@ -51,21 +51,20 @@ def fetch_with_timeout(url, timeout=2):
     except Exception as e:
         return str(e)
 
-# Function to flood a specific URL
+
 def flood(url, duration):
     start_time = time.time()
     while time.time() - start_time < duration:
         fetch_with_timeout(url)
-        time.sleep(0.01)  # Sleep for 10 milliseconds to control the rate of requests
+        time.sleep(0.01)  
 
-# Main function to start the flood
+
 def main():
     url = input("Enter the website URL to test: ")
     duration = int(input("Enter the duration of the test in seconds: "))
     
-    # Start multiple threads to simulate concurrent users
     threads = []
-    for _ in range(100):  # Adjust the number of threads to control load
+    for _ in range(100):  
         thread = threading.Thread(target=flood, args=(url, duration))
         threads.append(thread)
         thread.start()
